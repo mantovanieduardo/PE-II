@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="style.css">
+  <title>Sistema de Agendamento</title>
+</head>
+<body>
+  <!-- Tela de Login -->
+  <div class="container" id="loginContainer">
+    <h1>Login</h1>
+    <form id="loginForm" onsubmit="login(event)">
+      <label for="username">Usuário</label>
+      <input type="text" id="username" placeholder="Digite o nome de usuário" required>
+      <label for="password">Senha</label>
+      <input type="password" id="password" placeholder="Digite a senha" required>
+      <button type="submit">Entrar</button>
+    </form>
+    <button onclick="showRegister()">Cadastrar</button>
+  </div>
+
+  <!-- Tela de Cadastro -->
+  <div class="container hidden" id="registerContainer">
+    <h1>Cadastro</h1>
+    <form id="registerForm" onsubmit="register(event)">
+      <label for="newUsername">Usuário</label>
+      <input type="text" id="newUsername" placeholder="Digite seu nome de usuário" required>
+      <label for="newPassword">Senha</label>
+      <input type="password" id="newPassword" placeholder="Digite sua senha" required>
+      <button type="submit">Cadastrar</button>
+    </form>
+    <button onclick="showLogin()">Voltar ao Login</button>
+  </div>
+
+  <!-- Tela de Agendamento -->
+  <div class="container hidden" id="agendamentoContainer">
+    <h1>Agendamento</h1>
+    
+    <!-- Escolher Tipo de Agendamento -->
+    <div class="step" id="step1">
+      <label for="tipoAgendamento">Tipo de Agendamento</label>
+      <select id="tipoAgendamento" required>
+        <option value="">Selecione um tipo</option>
+        <option value="Biblioteca">Biblioteca</option>
+        <option value="JBL">JBL</option>
+        <option value="Multiuso">Multiuso</option>
+        <option value="Interioridades">Interioridades</option>
+        <option value="Robótica">Robótica</option>
+        <option value="Carrinho">Carrinho</option>
+        <option value="Salas do EM">Salas do EM</option>
+        <option value="Lab. Ciências">Lab. Ciências</option>
+        <option value="Óculos VR">Óculos VR</option>
+      </select>
+      <button onclick="nextStep(2)">Avançar</button>
+    </div>
+    
+    <!-- Escolher Data e Horário -->
+    <div class="step hidden" id="step2">
+      <label for="data">Data</label>
+      <input type="date" id="data" required>
+      
+      <label for="horario">Horário</label>
+      <select id="horario" required>
+        <option value="">Selecione um horário</option>
+        <script>
+          for (let hour = 8; hour <= 17; hour++) {
+            for (let min = 0; min < 60; min += 15) {
+              let time = `${hour.toString().padStart(2, '0')}:${min.toString().padStart(2, '0')}`;
+              document.write(`<option value="${time}">${time}</option>`);
+            }
+          }
+        </script>
+      </select>
+
+      <button onclick="submitAgendamento()">Confirmar Agendamento</button>
+      <button onclick="newAgendamento()" style="margin-top: 10px;">Efetuar um Novo Agendamento</button>
+      <button onclick="voltarMenuPrincipal()" style="margin-top: 10px;">Voltar ao Menu Principal</button>
+    </div>
+    
+    <div id="feedback" class="feedback hidden"></div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
